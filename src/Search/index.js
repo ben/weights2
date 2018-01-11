@@ -5,9 +5,7 @@ export const Search = ({text, onChange}) => (
     <label htmlFor="movement">What are we lifting today?</label>
     <input type="text" id="movement" className='u-full-width' placeholder="Movement"
       value={text}
-      onChange={e => {
-        onChange(e.target.value)
-      }}
+      onChange={e => onChange(e.target.value) }
     />
   </div>
 )

@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { Search } from '../Search';
+import React, { Component } from 'react'
+import { Search } from '../Search'
+import { SearchResults } from '../SearchResults'
+import { NewEntry } from '../NewEntry'
 
-class App extends Component {
+export class App extends Component {
   constructor() {
     super()
     this.state = {
-      search: ''
+      search: '',
+      proposedEntry: null
     }
   }
 
@@ -16,16 +19,23 @@ class App extends Component {
   }
 
   render() {
+    const {
+      search,
+      proposedEntry
+    } =  this.state
+
     return (
       <div className="container">
         <section className="header">
           <h1>Weights</h1>
         </section>
-        <Search text={this.state.search} onChange={this.setSearch} />
-        (search results)
+        <Search text={search} onChange={this.setSearch} />
+        {
+          proposedEntry
+            ? <NewEntry entry={proposedEntry} />
+            : search ? <SearchResults query={search} /> : null
+        }
       </div>
     )
   }
 }
-
-export default App;
