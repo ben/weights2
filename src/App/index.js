@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Search } from '../Search'
 import { SearchResults } from '../SearchResults'
 import { NewEntry } from '../NewEntry'
-import { firebase, auth, provider } from '../firebase'
+import { auth, provider } from '../firebase'
 
 export class App extends Component {
   constructor() {
@@ -17,7 +17,8 @@ export class App extends Component {
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user });
+        this.setState({ user })
+        window.user = user
       }
     })
   }

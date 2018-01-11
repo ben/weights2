@@ -6,9 +6,10 @@ const config = {
   projectId: "weights-1a178",
   storageBucket: "weights-1a178.appspot.com",
   messagingSenderId: "222387091855"
-};
+}
 firebase.initializeApp(config)
 export { firebase }
 
-export const provider = new firebase.auth.GoogleAuthProvider();
-export const auth = firebase.auth();
+export const provider = new firebase.auth.GoogleAuthProvider()
+export const auth = firebase.auth()
+export const db = firebase.database()
