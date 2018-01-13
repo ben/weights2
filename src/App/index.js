@@ -57,7 +57,8 @@ export class App extends Component {
 
   setSearch = search => {
     this.setState({
-      search
+      search,
+      proposedEntry: null
     })
   }
 
