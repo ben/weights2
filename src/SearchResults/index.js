@@ -26,15 +26,26 @@ export class SearchResults extends Component {
     this.setState({ results })
   }
 
+  proposeEntry = (template = {}) => {
+    this.props.onProposeEntry({
+      name: template.name || this.props.query,
+      reps: template.reps || '',
+      weight: template.weight || '',
+      when: Date.now(),
+    })
+  }
+
   render () {
     const { results } = this.state
-    if (results.length === 0) {
-      return <p>(no results)</p>
-      // TODO: new-workout button
-    }
-    // TODO: table with button cells
-    return results.map(result => (
+    const renderedResults = results.map(result => (
       <pre key={result.when}><code>{JSON.stringify(result)}</code></pre>
     ))
+
+    return (
+      <div>
+        {renderedResults}
+        <button className="u-full-width" onClick={this.proposeEntry}>New entry</button>
+      </div>
+    )
   }
 }

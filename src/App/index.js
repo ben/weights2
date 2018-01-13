@@ -67,6 +67,10 @@ export class App extends Component {
     })
   }
 
+  saveProposedEntry = () => {
+    // TODO:
+  }
+
   render() {
     const {
       user,
@@ -90,8 +94,8 @@ export class App extends Component {
         }
         {
           proposedEntry
-            ? <NewEntry entry={proposedEntry} onChange={this.setProposedEntry} />
-            : search ? <SearchResults workouts={workouts} query={search} /> : null
+            ? <NewEntry entry={proposedEntry} onChange={this.setProposedEntry} onSave={this.saveProposedEntry} />
+            : search ? <SearchResults workouts={workouts} query={search} onProposeEntry={this.setProposedEntry} /> : null
         }
       </div>
     )
