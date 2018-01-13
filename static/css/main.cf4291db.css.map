@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,WACE,eAAiB,CAGnB,QACE,gBACA,iBAAmB","file":"static/css/main.cf4291db.css","sourcesContent":[".container {\n  max-width: 800px;\n}\n\n.header {\n  margin-top: 6rem;\n  text-align: center;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/index.css"],"sourceRoot":""}
