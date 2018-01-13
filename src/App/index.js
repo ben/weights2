@@ -75,9 +75,12 @@ export class App extends Component {
       proposedEntry,
     } =  this.state
 
-    const logInOutButton = user
-      ? <button className='u-full-width' onClick={this.logout}>Log out</button>
-      : <button className='u-full-width' onClick={this.login}>Log in</button>
+    const logInOutButton = (
+      <button style={{ position: 'absolute', right: 0 }}
+              onClick={user ? this.logout : this.login}>
+        Log {user ? 'out' : 'in'}
+      </button>
+    )
     const lowerSection = (
       <div>
         {
@@ -90,16 +93,14 @@ export class App extends Component {
             ? <NewEntry entry={proposedEntry} onChange={this.setProposedEntry} />
             : search ? <SearchResults workouts={workouts} query={search} /> : null
         }
-        {logInOutButton}
       </div>
     )
 
     return (
       <div className="container">
         <section className="header">
-          <h1>
-            Weights
-          </h1>
+          {logInOutButton}
+          <h1>Weights</h1>
         </section>
         {lowerSection}
       </div>
