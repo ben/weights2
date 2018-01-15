@@ -36,6 +36,10 @@ export class SearchResults extends Component {
     })
   }
 
+  duplicateHandler = (entry) => {
+    return () => { this.proposeEntry(entry) }
+  }
+
   render () {
     const { results } = this.state
 
@@ -53,7 +57,12 @@ export class SearchResults extends Component {
         <td>{result.weight}</td>
         <td>{result.reps}</td>
         <td>{formatDate(result.when)}</td>
-        <td><button>+</button></td>
+        <td width={20}>
+          <button style={{width: 20}}
+                  onClick={this.duplicateHandler(result)}>
+            +
+          </button>
+        </td>
       </tr>
       // <pre key={result.when}><code>{JSON.stringify(result)}</code></pre>
     ))
@@ -67,7 +76,7 @@ export class SearchResults extends Component {
               <th>Weight</th>
               <th>Reps</th>
               <th>Date</th>
-              <th></th>
+              <th width={20}></th>
             </tr>
           </thead>
           <tbody>
