@@ -23,12 +23,10 @@ export class App extends Component {
 
         const ref = db.ref(`users/${user.uid}/workouts`)
         ref.on('child_added', (data) => {
-          console.log('child_added', data.key)
           this.setState(({workouts}) =>
             Object.assign(workouts, {[data.key]: data.val()}))
         })
         ref.on('child_removed', (data) => {
-          console.log('child_removed', data.key)
           this.setState(({workouts}) => {
             delete workouts[data.key]
             return {workouts: Object.assign({}, workouts)}
@@ -78,23 +76,15 @@ export class App extends Component {
       proposedEntry,
     } =  this.state
 
-    const logInOutButton = (
-      <button style={{ position: 'absolute', right: 0 }}
-              onClick={user ? this.logout : this.login}>
-        Log {user ? 'out' : 'in'}
-      </button>
-    )
-    const lowerSection = (
-      <div>
+    let content
+    if (user) {
+      content = (
+        <div>
         {
           proposedEntry
             ? <NewEntry entry={proposedEntry} onChange={this.setProposedEntry} onSave={this.saveProposedEntry} />
             : <div>
-              {
-                user
-                  ? <Search text={search} onChange={this.setSearch} />
-                  : null
-              }
+              <Search text={search} onChange={this.setSearch} />
               {
                 search
                   ? <SearchResults workouts={workouts} query={search} onProposeEntry={this.setProposedEntry} />
@@ -102,16 +92,28 @@ export class App extends Component {
               }
             </div>
         }
+        <footer>
+          <a className='small'
+                  onClick={user ? this.logout : this.login}>
+            Log out
+          </a>
+        </footer>
       </div>
-    )
+      )
+    } else {
+      content = (
+        <button className='u-full-width' onClick={this.login}>
+          Log in
+        </button>
+      )
+    }
 
     return (
       <div className="container">
         <section className="header">
-          {logInOutButton}
           <h1>Weights</h1>
         </section>
-        {lowerSection}
+        {content}
       </div>
     )
   }

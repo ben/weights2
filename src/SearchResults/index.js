@@ -45,23 +45,22 @@ export class SearchResults extends Component {
 
     const formatDate = timestamp => {
       const date = new Date(timestamp)
-      const year = date.getFullYear()
       const month = date.getMonth() + 1
       const day = date.getDate()
-      return `${month}/${day}/${year}`
+      return `${month}/${day}`
     }
 
     const renderedResults = results.map(result => (
       <tr key={result.when}>
-        <td>{result.name}</td>
-        <td>{result.weight}</td>
-        <td>{result.reps}</td>
         <td>{formatDate(result.when)}</td>
+        <td>{result.name}</td>
+        <td>{result.weight}#</td>
+        <td>&times;{result.reps}</td>
         <td width={20}>
-          <button style={{width: 20}}
+          <a style={{width: 20}}
                   onClick={this.duplicateHandler(result)}>
-            +
-          </button>
+            {'\u002b'}
+          </a>
         </td>
       </tr>
       // <pre key={result.when}><code>{JSON.stringify(result)}</code></pre>
@@ -70,15 +69,6 @@ export class SearchResults extends Component {
     return (
       <div>
         <table className="u-full-width">
-          <thead>
-            <tr>
-              <th>Movement</th>
-              <th>Weight</th>
-              <th>Reps</th>
-              <th>Date</th>
-              <th width={20}></th>
-            </tr>
-          </thead>
           <tbody>
             {renderedResults}
           </tbody>
