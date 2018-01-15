@@ -8,13 +8,13 @@ export class NewEntry extends Component {
 
   updateHandler = (k) => (e) => this.update(k, e.target.value)
 
-  cancel = () => this.props.onChange(null) && false
-  save = () => this.props.onSave() && false
+  cancel = () => this.props.onChange(null)
+  save = () => this.props.onSave()
 
   render () {
     const {entry} = this.props
     return (
-      <form>
+      <div>
         <div className="row">
           <label htmlFor="name">Movement</label>
           <input type="text" className="u-full-width" id="name"
@@ -45,7 +45,7 @@ export class NewEntry extends Component {
             </button>
           </div>
         </div>
-      </form>
+      </div>
     )
   }
 }
