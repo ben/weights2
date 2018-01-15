@@ -22,9 +22,6 @@ export class App extends Component {
         window.user = user
 
         const ref = db.ref(`users/${user.uid}/workouts`)
-        // ref.once('value', snapshot => {
-        //   this.setState({workouts: snapshot.val() || []})
-        // })
         ref.on('child_added', (data) => {
           console.log('child_added', data.key)
           this.setState(({workouts}) =>
@@ -34,7 +31,7 @@ export class App extends Component {
           console.log('child_removed', data.key)
           this.setState(({workouts}) => {
             delete workouts[data.key]
-            return {workouts}
+            return {workouts: Object.assign({}, workouts)}
           })
         })
         window.ref = ref
@@ -63,13 +60,14 @@ export class App extends Component {
   }
 
   setProposedEntry = proposedEntry => {
-    this.setState({
-      proposedEntry
-    })
+    this.setState({ proposedEntry })
   }
 
-  saveProposedEntry = () => {
-    // TODO:
+  saveProposedEntry = async () => {
+    const { proposedEntry, user } = this.state
+    const ref = db.ref(`users/${user.uid}/workouts`)
+    await ref.push(proposedEntry)
+    this.setState({ proposedEntry: null })
   }
 
   render() {
@@ -89,14 +87,20 @@ export class App extends Component {
     const lowerSection = (
       <div>
         {
-          user
-            ? <Search text={search} onChange={this.setSearch} />
-            : null
-        }
-        {
           proposedEntry
             ? <NewEntry entry={proposedEntry} onChange={this.setProposedEntry} onSave={this.saveProposedEntry} />
-            : search ? <SearchResults workouts={workouts} query={search} onProposeEntry={this.setProposedEntry} /> : null
+            : <div>
+              {
+                user
+                  ? <Search text={search} onChange={this.setSearch} />
+                  : null
+              }
+              {
+                search
+                  ? <SearchResults workouts={workouts} query={search} onProposeEntry={this.setProposedEntry} />
+                  : null
+              }
+            </div>
         }
       </div>
     )
