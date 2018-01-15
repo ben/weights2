@@ -2,8 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
 import registerServiceWorker from './registerServiceWorker'
+import initReactFastclick from 'react-fastclick'
 
 import './index.css'
 
+initReactFastclick()
 ReactDOM.render(<App />, document.getElementById('root'))
 registerServiceWorker()
