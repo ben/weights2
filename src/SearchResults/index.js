@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { sortBy } from 'lodash'
+import { sortBy, reverse } from 'lodash'
 
 export class SearchResults extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export class SearchResults extends Component {
     const results = Object.keys(workouts)
       .map(k => workouts[k])
       .filter(w => !!w.name.match(new RegExp(query, 'i')))
-    this.setState({ results: sortBy(results, r => r.when) })
+    this.setState({ results: reverse(sortBy(results, r => r.when)) })
   }
 
   proposeEntry = (template = {}) => {
