@@ -5,7 +5,7 @@ export class SearchResults extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      results: [],
+      results: []
     }
   }
 
@@ -14,7 +14,10 @@ export class SearchResults extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.query !== nextProps.query || this.props.workouts !== nextProps.workouts) {
+    if (
+      this.props.query !== nextProps.query ||
+      this.props.workouts !== nextProps.workouts
+    ) {
       this.updateSearchResults(nextProps.query)
     }
   }
@@ -32,15 +35,17 @@ export class SearchResults extends Component {
       name: template.name || this.props.query,
       reps: template.reps || '',
       weight: template.weight || '',
-      when: Date.now(),
+      when: Date.now()
     })
   }
 
-  duplicateHandler = (entry) => {
-    return () => { this.proposeEntry(entry) }
+  duplicateHandler = entry => {
+    return () => {
+      this.proposeEntry(entry)
+    }
   }
 
-  render () {
+  render() {
     const { results } = this.state
 
     const formatDate = timestamp => {
@@ -57,8 +62,7 @@ export class SearchResults extends Component {
         <td>{result.weight}#</td>
         <td>&times;{result.reps}</td>
         <td width={20}>
-          <a style={{width: 20}}
-                  onClick={this.duplicateHandler(result)}>
+          <a style={{ width: 20 }} onClick={this.duplicateHandler(result)}>
             {'\u002b'}
           </a>
         </td>
@@ -69,11 +73,11 @@ export class SearchResults extends Component {
     return (
       <div>
         <table className="u-full-width">
-          <tbody>
-            {renderedResults}
-          </tbody>
+          <tbody>{renderedResults}</tbody>
         </table>
-        <button className="u-full-width" onClick={this.proposeEntry}>New entry</button>
+        <button className="u-full-width" onClick={this.proposeEntry}>
+          New entry
+        </button>
       </div>
     )
   }
