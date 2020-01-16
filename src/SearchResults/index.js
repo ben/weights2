@@ -52,7 +52,18 @@ export class SearchResults extends Component {
       const date = new Date(timestamp)
       const month = date.getMonth() + 1
       const day = date.getDate()
-      return `${month}/${day}`
+      const year = date
+        .getFullYear()
+        .toString()
+        .substr(2)
+      return `${month}/${day}/${year}`
+    }
+
+    const formatReps = value => {
+      if (value.match(/^\d+$/)) {
+        return <span>&times;{value}</span>
+      }
+      return <span>{value}</span>
     }
 
     const renderedResults = results.map(result => (
@@ -60,11 +71,14 @@ export class SearchResults extends Component {
         <td>{formatDate(result.when)}</td>
         <td>{result.name}</td>
         <td>{result.weight}#</td>
-        <td>&times;{result.reps}</td>
-        <td width={20}>
-          <a style={{ width: 20 }} onClick={this.duplicateHandler(result)}>
+        <td>{formatReps(result.reps)}</td>
+        <td>
+          <button
+            style={{ padding: '0 10px' }}
+            onClick={this.duplicateHandler(result)}
+          >
             {'\u002b'}
-          </a>
+          </button>
         </td>
       </tr>
       // <pre key={result.when}><code>{JSON.stringify(result)}</code></pre>
