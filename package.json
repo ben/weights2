@@ -5,7 +5,7 @@
   "homepage": "http://weights2.straub.cc",
   "dependencies": {
     "firebase": "^7.17.1",
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-fastclick": "^3.0.2",
